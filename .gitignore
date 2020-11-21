@@ -17,3 +17,4 @@ _autosave*
 _site
 
 datasheets
+.jekyll-cache/Jekyll
