@@ -1,3 +1,0 @@
-(fp_lib_table
-  (lib (name GPS)(type KiCad)(uri ${KIPRJMOD}/library/footprints/GPS.pretty)(options "")(descr ""))
-)
