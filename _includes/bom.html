@@ -1,0 +1,178 @@
+<section class="section is-small">
+  <div class="container">
+    <h2 class="title is-1">Overview</h2>
+
+    <div class="content is-large">
+      <ul>
+        <li>
+          <strong>Total parts:</strong> <span>{{ site.data.bom.bom-total }}</span>
+          {% if site.data.bom.bom-total-populate %}
+          <ul>
+            <li><strong>Total parts to populate:</strong> <span>{{ site.data.bom.bom-total-populate }}</span></li>
+          </ul>
+          {% endif %}
+        </li>
+        <li><strong>Unique parts:</strong> <span>{{ site.data.bom.bom-uniq }}</span></li>
+        <li><strong>Total vendors:</strong> <span>{{ site.data.bom.vendors }}</span></li>
+        <li><strong>Vendor names:</strong> <span>
+          {% for name in site.data.bom.vendor-names %}
+            {% if forloop.last == true %}
+              {{ name }}
+            {% else %}
+              {{ name }},
+            {% endif %}
+          {% endfor %}
+        </span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section is-small">
+  <div class="container" id="bom" >
+    <h2 class="title is-1">Bill of Materials</h2>
+    <a href="{{site.url}}/_data/bill_of_materials.csv" class="button is-large is-fullwidth is-info">Download BOM in CSV</a>
+    <br>
+
+    {% raw %}
+    <div class="field is-horizontal">
+      <div class="field-label is-large" style="flex-grow:0">
+        <label class="label">Currency</label>
+      </div>
+      <div class="field-body">
+        <div class="field">
+          <div class="control">
+            <div class="select is-large">
+              <select v-model="currency">
+                <option>USD</option>
+                <option>EUR</option>
+                <option>GBP</option>
+                <option>INR</option>
+                <option>RMB</option>
+                <option>SGD</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content is-large">
+      <strong>Total cost of items: {{ getTotalBomCost() }}</strong>
+    </div>
+
+    <div class="table-container">
+      <div class="field">
+        <div class="controlt">
+          <input v-model="search" class="input is-large" type="text" placeholder="Search for components">
+        </div>
+      </div>
+
+      <table class="table is-fullwidth is-hoverable">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th></th>
+            <th>
+              <a href="#bom" v-on="click: sortBy('designator')">
+                Designator
+                <span class="icon">
+                  <i v-if="reverse && sortKey == 'designator'" class="fas fa-caret-down"></i>
+                  <i v-if="!reverse && sortKey == 'designator'" class="fas fa-caret-up"></i>
+                </span>
+              </a>
+            </th>
+            <th>Q</th>
+            <th>Package</th>
+            <th>Value</th>
+            <th>Manufacturer</th>
+            <th>
+              <a href="#bom" v-on="click: sortBy('vendor')">
+                Vendor
+                <span class="icon">
+                  <i v-if="reverse && sortKey == 'vendor'" class="fas fa-caret-down"></i>
+                  <i v-if="!reverse && sortKey == 'vendor'" class="fas fa-caret-up"></i>
+                </span>
+              </a>
+            </th>
+            <th>
+              <a href="#bom" v-on="click: sortBy('unit_cost')">
+                Cost
+                <span class="icon">
+                  <i v-if="reverse && sortKey == 'unit_cost'" class="fas fa-caret-down"></i>
+                  <i v-if="!reverse && sortKey == 'unit_cost'" class="fas fa-caret-up"></i>
+                </span>
+              </a>
+            </th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-repeat="components | filterBy search | orderBy sortKey reverse">
+            <td>{{ $index +1 }}</td>
+            <td><input type="checkbox"></td>
+            <td>
+              {{ designator }}
+              <br><span class="tag">{{ category }}</span>
+              <br v-if="dnp">
+              <span v-if="dnp" class="tag is-info">DNP {{ getDNP(dnp, designator) }}</span>
+              <span v-if="stock" class="tag is-warning">Stock: {{ stock }} </span>
+            </td>
+            <td class="bom-quantity">{{ quantity }}</td>
+            <td>{{ package }}</td>
+            <td>{{ value }}</td>
+            <td>
+              <span v-if="mpn">{{ mpn }}</span>
+              <br v-if="datasheet">
+              <a v-if="datasheet" href="{{ datasheet }}">
+                Datasheet
+                <span class="icon has-text-info">
+                  <i class="fas fa-file-pdf"></i>
+                </span>
+              </a>
+              <br>
+              <span v-if="manufacturer"><em>by {{ manufacturer }}</em></span>
+            </td>
+            <td>
+              <a v-if="vendor_link" href="{{ vendor_link }}">
+                {{ vendor }}
+                <span class="icon">
+                  <i class="fas fa-external-link-alt"></i>
+                </span>
+              </a>
+            </td>
+            <td>{{ getUnitCost(unit_cost) }}</td>
+            <td><small>{{ description }}</small></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    {% endraw %}
+
+    <div class="content is-medium">
+      <p class="title is-3">Notes</p>
+      <ul>
+        <li><strong>Designator:</strong> <a href="https://en.wikipedia.org/wiki/Reference_designator">Reference designator</a> according to standards <code>ASME Y14.44-2008</code> and <code>IEEE 315-1975</code> are used.</li>
+        <li><strong>Cost:</strong> Unit price does not include shipping cost, interest charges, taxes and minimum order quantity cost.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+{% if page.ibom == true %}
+<section class="section is-small">
+  <div class="container">
+    <h2 class="title is-1">Interactive BOM</h2>
+
+    <p class="subtitle">This can be used while soldering, testing or inspecting the manufactured and assembled PCB.</p>
+    <p class="subtitle"><a href="{{ site.url }}/bom/ibom.html">Click here to open full screen</a>.</p>
+  </div>
+</section>
+
+{%- if jekyll.environment == 'development' and site.google_analytics -%}
+<!-- FIXME: If div is used instead of span on the desktop view, the right side view of the PCB in canvas is not displayed. -->
+{%- endif -%}
+<span class="is-hidden-touch">
+  {% include_relative bom/ibom.html %}
+</span>
+{% endif %}

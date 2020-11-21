@@ -1,0 +1,80 @@
+{% if page.manufacturing != false %}
+<section class="section is-small">
+  <div class="container">
+    <div class="columns is-desktop">
+      <div class="column"><img src="{{site.url}}/images/prototype/front.jpg" alt="Prototype Front"></div>
+      <div class="column"><img src="{{site.url}}/images/prototype/back.jpg" alt="Prototype Back"></div>
+      <div class="column"><img src="{{site.url}}/images/prototype/side.jpg" alt="Prototype Side"></div>
+      <div class="column"><img src="{{site.url}}/images/prototype/top.jpg" alt="Prototype Top"></div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+
+{% if page.downloads != false %}
+<section class="section is-small">
+  <div class="container">
+    <h2 class="title is-1">Downloads</h2>
+
+    <div class="content is-medium">
+      <div class="buttons">
+        {% if page.download_schematic != false %}
+        <a class="button is-info is-outlined" href="{{ site.url }}/hardware/docs/schematic.pdf">
+          <span class="icon">
+            <i class="far fa-file-pdf"></i>
+          </span>
+          <span>Schematic</span>
+        </a>
+        {% endif %}
+
+        {% if page.download_layout != false %}
+        <a class="button is-info is-outlined" href="{{ site.url }}/hardware/docs/layout.pdf">
+          <span class="icon">
+            <i class="far fa-file-pdf"></i>
+          </span>
+          <span>Layout</span>
+        </a>
+        {% endif %}
+
+        {% if page.download_kicad != false %}
+        <a class="button is-info is-outlined" href="{{site.github.repository_url}}/tree/master/hardware">
+          <span class="icon">
+            <i class="fas fa-file-contract"></i>
+          </span>
+          <span>ECAD KiCad files</span>
+        </a>
+        {% endif %}
+
+        {% if page.download_gerber != false %}
+        <a class="button is-info is-outlined" href="{{site.github.repository_url}}/tree/master/hardware/gerbers">
+          <span class="icon">
+            <i class="fas fa-file-contract"></i>
+          </span>
+          <span>Gerber files</span>
+        </a>
+        {% endif %}
+
+        {% for sw in page.software %}
+        <a class="button is-success is-outlined" href="{{site.github.repository_url}}/tree/master/{{sw.code}}">
+          <span class="icon">
+            <i class="fas fa-file-code"></i>
+          </span>
+          <span>{{sw.name}}</span>
+        </a>
+        {% endfor %}
+
+        {% if page.download_bom != false %}
+        <a class="button is-danger is-outlined" href="{{site.url}}/_data/bill_of_materials.csv">
+          <span class="icon">
+            <i class="fas fa-table"></i>
+          </span>
+          <span>Bill of Materials</span>
+        </a>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}

@@ -1,0 +1,38 @@
+<script src="//cdnjs.cloudflare.com/ajax/libs/frappe-gantt/0.3.0/frappe-gantt.js"></script>
+
+<script>
+var tasks = [
+{
+  id: 'Task 1',
+  name: 'Design',
+  start: '{{page.design_start}}',
+  end: '{{page.design_end}}',
+  progress: 100,
+}, {
+  id: 'Task 2',
+  name: 'Manufacturing',
+  start: '{{page.manufacturing_start}}',
+  end: '{{page.manufacturing_end}}',
+  progress: 100,
+  dependencies: 'Task 1',
+}, {
+  id: 'Task 3',
+  name: 'Integration',
+  start: '{{page.integration_start}}',
+  end: '{{page.integration_end}}',
+  progress: 100,
+  dependencies: 'Task 2',
+}, {
+  id: 'Task 4',
+  name: 'Deployment',
+  start: '{{page.deployment_start}}',
+  end: '{{page.deployment_end}}',
+  progress: 100,
+  dependencies: 'Task 3',
+}
+]
+var gantt = new Gantt("#gantt", tasks, {
+  bar_height: 40,
+  view_mode: 'Month'
+});
+</script>

@@ -1,0 +1,63 @@
+{% if page.sub_system %}
+<section class="section is-small">
+  <div class="container">
+    <h2 class="title is-1">Sub-system design</h2>
+    <img src="{{site.url}}/images/design/subsystem.png" alt="Subsystem design">
+  </div>
+</section>
+{% endif %}
+
+{% if page.terminologies %}
+<section class="section is-small">
+  <div class="container">
+    <h2 class="title is-1">Terminologies</h2>
+
+    <div class="content is-medium">
+      <ol>
+      {% for term in page.terminologies %}
+        <li><span class="has-background-grey-lighter">{{ term.term }}</span> - {{ term.definition }}</li>
+      {% endfor %}
+      </ol>
+    </div>
+
+  </div>
+</section>
+{% endif %}
+
+{% if page.user_stories %}
+<section class="section is-small">
+  <div class="container">
+    <h2 class="title is-1">User Stories</h2>
+
+    {% for story in page.user_stories %}
+      <p class="subtitle is-3">{{ story.user | capitalize }}</p>
+      <hr>
+
+      <div class="columns is-multiline">
+      {% for action in story.actions %}
+        <div class="column is-4">
+          <div class="card">
+            <div class="card-content">
+              <p class="subtitle">
+                As a {{ story.user }}, I want to <strong>{{ action.goal }}</strong> so that <em>{{ action.reason }}</em>.
+              </p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+      </div>
+    {% endfor %}
+
+  </div>
+</section>
+{% endif %}
+
+{% if page.state_machine %}
+<section class="section is-small">
+  <div class="container">
+    <h2 class="title is-1">State Machine</h2>
+    <p class="subtitle">Edit <code><a href="{{site.github.raw_content_url}}/design/state_machine.md">state_machine.md</a></code> at <a href="https://mermaidjs.github.io/mermaid-live-editor">mermaid js live editor</a>.</p>
+    <img src="{{site.url}}/images/design/state_machine.svg" alt="State Machine">
+  </div>
+</section>
+{% endif %}

@@ -1,0 +1,62 @@
+{% if page.similar %}
+<section class="section is-small">
+  <div class="container">
+    <h2 class="title is-1">Similar projects</h2>
+
+    <div class="content is-medium">
+      <table class="table is-fullwidth is-hoverable">
+        <thead>
+          <tr>
+            <th>Project</th>
+            <th>Attributes</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for project in page.similar %}
+          <tr>
+            <td>
+              <a href="{{ project.url }}">{{ project.name }}</a>
+              <span class="tag is-light">{{ project.type }}</span>
+
+              {% if project.year %}
+              <span class="tag is-dark">{{ project.year }}</span>
+              {% endif %}
+
+              {% if project.cost %}
+              <span class="tag is-info">USD {{ project.cost }}</span>
+              {% endif %}
+            </td>
+            <td>
+              {% if project.components %}
+                {% for comp in project.components %}
+                  {{ comp.type }}{% if comp.name %}:{% endif %}
+                  <a href="{{ comp.url }}">{{ comp.name }}</a>
+                  <br>
+                {% endfor %}
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% assign references = page.references %}
+{% for ref in references %}
+<section class="section is-small">
+  <div class="container">
+    <h2 class="title is-1">{{ ref.topic }}</h2>
+
+    <div class="content is-medium">
+      <ol>
+        {% for li in ref.list %}
+        <li><a href="{{ li.url }}">{{ li.name }}</a></li>
+        {% endfor %}
+      </ol>
+    </div>
+  </div>
+</section>
+{% endfor %}

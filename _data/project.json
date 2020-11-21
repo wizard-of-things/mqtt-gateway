@@ -1,0 +1,12 @@
+{
+  "name": "Mqtt Gateway",
+  "description": "Environmetal Dashboard",
+  "version": "1.0",
+
+  "power": "USB",
+  "wireless":"WiFi",
+  "sensor": "BM280",
+  "mcu": "esp8266",
+
+  "status": "ongoing"
+}

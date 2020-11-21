@@ -1,0 +1,46 @@
+{% assign lessons = page.lessons %}
+{% for le in lessons %}
+<section class="section is-small">
+  <div class="container">
+
+    <h2 class="title is-1">{{ le.title }}</h2>
+    {% if le.subtitle %}
+    <p class="subtitle">{{le.subtitle}}</p>
+    {% endif %}
+
+    <div class="content is-medium">
+      <ul>
+        {% for li in le.list %}
+        <li>
+          {{ li.name }}
+          {% if li.image %}
+          <img src="images/lessons/{{ li.image }}" alt="{{ li.name }}">
+          {% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+{% endfor %}
+
+
+{% for im in page.improvements %}
+<section class="section is-small">
+  <div class="container">
+
+    <h2 class="title is-1">{{ im.title }}</h2>
+    {% if im.subtitle %}
+    <p class="subtitle">{{im.subtitle}}</p>
+    {% endif %}
+
+    <div class="content is-medium">
+      <ul>
+        {% for li in im.list %}
+        <li>{{ li.name }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+{% endfor %}

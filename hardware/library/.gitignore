@@ -1,0 +1,9 @@
+# Temporary
+*.kicad_pcb-bak
+*.bak
+*.bck
+*.bin
+*.elf
+.DS_Store
+
+datasheets

@@ -1,0 +1,77 @@
+{% if page.power_source %}
+<section class="section is-small">
+  <div class="container">
+    <div class="columns is-desktop">
+      <div class="column">
+        <div class="card">
+          <header class="card-header">
+            <p class="card-header-title">
+              Power source
+            </p>
+          </header>
+          <div class="card-content">
+            <div class="content">
+              {{ page.power_source }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="card">
+          <header class="card-header">
+            <p class="card-header-title">
+              Battery life
+            </p>
+          </header>
+          {% if page.battery_life %}
+          <div class="card-content">
+            <div class="content">
+              {{ page.battery_life }}
+            </div>
+          </div>
+          <footer class="card-footer">
+            <a href="#main-components" class="card-footer-item">Main components</a>
+            <a href="#calculation" class="card-footer-item">Calculation</a>
+          </footer>
+          {% else %}
+          <div class="card-content">
+            <div class="content">
+              Coming soon...
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      <div class="column">
+        <div class="card">
+          <header class="card-header">
+            <p class="card-header-title">
+              Charging duration
+            </p>
+          </header>
+          {% if page.charging_duration %}
+          <div class="card-content">
+            <div class="content">
+              {{ page.charging_duration }}
+            </div>
+            <div class="content">
+              {{ page.charging_instruction }}
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if page.power_tree %}
+<section class="section is-small">
+  <div class="container">
+    <h2 class="title is-1">Power tree schematic</h2>
+    <p class="subtitle">Edit <code><a href="{{site.url}}/images/power/power_tree_drawio.xml">power_tree_drawio.xml</a></code> at <a href="https://draw.io">draw.io</a>.</p>
+    <img src="{{site.url}}/images/power/power_tree.png" alt="Power Tree schematic">
+  </div>
+</section>
+{% endif %}

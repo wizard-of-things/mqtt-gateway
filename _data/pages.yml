@@ -1,0 +1,9 @@
+hardware: true
+software: true
+bom: false
+design: false
+power: false
+mechanical: false
+schedule: false
+lessons: false
+references: false

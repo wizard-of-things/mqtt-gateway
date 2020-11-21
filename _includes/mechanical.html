@@ -1,0 +1,43 @@
+<section class="section is-small">
+  <div class="container">
+    <h2 class="title is-1">Sizes</h2>
+
+    <table class="table is-fullwidth">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Height</th>
+          <th>Width</th>
+          <th>Depth</th>
+          <th>Weight</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% assign items = page.items %}
+        {% for item in items %}
+        <tr>
+          <td>
+            {% if item.url %}
+            <a href="{{ item.url }}">{{ item.name }}</a>
+            {% else %}
+            {{ item.name }}
+            {% endif %}
+
+            {% if item.comment %}
+            <span class="tag">{{ item.comment }}</span>
+            {% endif %}
+          </td>
+          <td><code>{{item.height}} {{item.dimension_unit}}</code></td>
+          <td><code>{{item.width}} {{item.dimension_unit}}</code></td>
+          <td><code>{{item.depth}} {{item.dimension_unit}}</code></td>
+          <td>
+            {% if item.weight %}
+            <code>{{item.weight}} {{item.weight_unit}}</code>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>

@@ -1,0 +1,21 @@
+# Temporary
+*.kicad_pcb-bak
+*.sch-bak
+*.bak
+_autosave*
+*-cache.lib
+*-rescue.lib
+*-rescue.dcm
+*.elf
+*.bin
+*.hex
+*.pyc
+
+# jekyll
+_site
+
+# node js
+node_modules
+package-lock.json
+
+datasheets
